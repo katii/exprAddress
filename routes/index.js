@@ -6,4 +6,14 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
+/* GET register page */
+router.register = function(req,res){
+    res.render('registerUser', {});
+}
+
+/* GET adda page */
+router.adda = function(req,res){
+res.render("addaddress",{});
+}
+
 module.exports = router;

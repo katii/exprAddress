@@ -1,0 +1,18 @@
+extends layout
+
+block content
+  h1 Registration
+  form(action="/addUser", method="post", data-ajax="false")
+    label User name
+    br
+    input(type="text", name="username", required, unique-username)
+    br
+    label Password
+    br
+    input(type="password", name="password", required)
+    br
+    label Email address
+    br
+    input(type="email", name="email", required)
+    br
+    input(type="submit", value="Register")

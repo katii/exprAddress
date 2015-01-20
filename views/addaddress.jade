@@ -1,0 +1,31 @@
+extends layout
+
+block content
+  h1 ADD STUFF
+    form(action="/addNewAdd", method="post" data-ajax='false')
+      br
+      label Name
+      br
+      input(type="text", name="name2")
+      br
+      label Address
+      br
+      input(type="text", name="address")
+      br
+      label Email
+      br
+      input(type="text", name="email2")
+      br
+      label Phone number
+      br
+      input(type="text", name="phonenumber")
+      br
+      label Birthday
+      br
+      input(type="date", name="birthday")
+      br
+      label General info
+      br
+      textarea(name="generalinfo")
+      br
+      input(type="submit", value="Add")

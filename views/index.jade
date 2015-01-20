@@ -1,5 +1,12 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+  div(class='container')
+    form(action='/userView', method='post')
+      input(type='text', name='username', placeholder='username', required)
+      br
+      input(type='password', name='password', placeholder='password', required)
+      br
+      input(type='submit', value='login')
+      p Not yet registered?
+    a(href='/register') Register here!
