@@ -5,11 +5,15 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
+var session = require('express-session');
 var db = require('./modules/dbConnection');
 
 var routes = require('./routes/index');
 
 var app = express();
+
+app.use(session({secret:'qrt54dlkfhfg9094',resave: false,saveUninitialized: true}));
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

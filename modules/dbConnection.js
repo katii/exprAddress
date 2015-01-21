@@ -25,7 +25,8 @@ var User = mongoose.model("User", users);
 
 var addresses = new Schema({
     owner:String,
-    name2:{type:String,index:{unique:true}},
+//    name2:{type:String,index:{unique:true}},
+    name2:String,
     address:String,
     email2:String,
     phonenumber:String,
@@ -55,7 +56,7 @@ exports.addUser = function(req,res){
             console.log(req.body.username);
             console.log(req.body.password);
             console.log(req.body.email);
-            res.render('index');
+            res.render('index', {title:'Login',error:''});
         }
     });
     
@@ -79,10 +80,14 @@ exports.login = function(req,res){
     console.log(req.body.username);
     console.log(req.body.password);
     
-    console.log("List users");
+    var userFound = false;
+    
     User.find(function(err,data){
         if(err){
-            res.render("Error" + err);
+            console.log("error loginissa");
+            res.render('index');
+            //res.render('index',{title:'Login',error:'Wrong username or password'});
+            //res.render("Error" + err);
             //res.render("myerror",{});
         }
         else{
@@ -93,9 +98,13 @@ exports.login = function(req,res){
                 
                 if(data[i].name == req.body.username && data[i].password == req.body.password ){
                     console.log("on sama " + data[i].name + " " + data[i].password );
-                    res.render('members', data[i]);
                     currentUser = data[i].name;
                     console.log('kurrentti juuseri: ' + currentUser);
+                    req.session.loggedin = true;
+                    req.session.username = req.body.username;
+                    //req.session.username = user[0].username;
+                    //res.redirect('/contacts');
+                    res.render('members', data[i]);
                     break;
                 }
                 else{
@@ -134,6 +143,7 @@ exports.addNewAddress = function(req,res){
     console.log('kurrentti juuseri: ' + currentUser);
     
     var temp = new Address({
+        //owner:req.session.username,
         owner:currentUser,
         name2:req.body.name2,
         address:req.body.address,
@@ -143,16 +153,16 @@ exports.addNewAddress = function(req,res){
         generalinfo:req.body.generalinfo
     });
 
-     console.log('temp data ' + temp);
+    console.log('temp data ' + temp);
     
     temp.save(function(err){
         if(err){
-            console.log("Error");
+            console.log("Error" + err);
             res.render('myerror',{});
         }
         else{
             console.log("All ok");
-            res.render('members', {add_data:data});
+            res.render('members');
             //exports.getCourses(req,res);
         }
     });
