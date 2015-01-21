@@ -1,0 +1,21 @@
+extends layout
+
+block content
+  div(class='container')
+    div(data-role='header') #{name2}
+      table(data-role='table',data-mode='reflow')
+        thead
+          tr
+            th Address
+            th Email
+            th Phone
+            th Birthday
+            th Other
+        tbody
+          tr
+            td #{address}
+            td #{email}
+            td #{phone}
+            td #{birthday}
+            td #{generalInfo}
+            

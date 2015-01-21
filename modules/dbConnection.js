@@ -100,8 +100,12 @@ exports.login = function(req,res){
                     console.log("on sama " + data[i].name + " " + data[i].password );
                     currentUser = data[i].name;
                     console.log('kurrentti juuseri: ' + currentUser);
+                    
                     req.session.loggedin = true;
                     req.session.username = req.body.username;
+                    
+                    console.log('req.session.username: ' + req.session.username);
+                    
                     //req.session.username = user[0].username;
                     //res.redirect('/contacts');
                     res.render('members', data[i]);
@@ -162,8 +166,21 @@ exports.addNewAddress = function(req,res){
         }
         else{
             console.log("All ok");
-            res.render('members');
-            //exports.getCourses(req,res);
+            //res.render('members');
+            exports.getContacts(req,res);
+        }
+    });
+}
+
+exports.getContacts = function(req,res){
+    console.log("getContacts");
+    Address.find(function(err,data){
+        if(err){
+            res.render("Error");
+        }
+        else{
+            console.log(data);
+            res.render('contacts', data);
         }
     });
 }

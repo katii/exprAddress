@@ -1,9 +1,11 @@
 extends layout
+
 block content
-h1 Addresses of #{owner}
-p Name: #{name2}
-p Address: #{address}
-p Email: #{email}
-p Phone: #{phonenumber}
-p Birthday: #{birthday}
-p General information: #{generalinfo}
+  div(class='container')
+    h1 Welcome #{username}
+    ul(data-role='listview')
+      each address in addresses
+        li
+          a(href='/contact_info?id=#{address._id}') #{address.name}
+          
+  a(href='/add_address') Add new contact
